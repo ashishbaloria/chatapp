@@ -1,27 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsEmojiSmileFill } from "react-icons/bs";
 import { IoMdSend } from "react-icons/io";
 import styled from "styled-components";
 import Picker from "emoji-picker-react";
+import { EditorState, Editor as DraftEditor } from "draft-js";
+import RichEditor from "./RichEditor";
 
 export default function ChatInput({ handleSendMsg }) {
   const [msg, setMsg] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [editorContent, setEditorContent] = useState("");
+
+  const editorOnChange = (content) => {
+    setEditorContent(content);
+    // setEditorState(EditorState.getCurrentContent());
+  };
+
   const handleEmojiPickerhideShow = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
-
   const handleEmojiClick = (event, emojiObject) => {
-    let message = msg;
+    let message = editorContent;
     message += emojiObject.emoji;
-    setMsg(message);
+    setEditorContent(message);
   };
 
   const sendChat = (event) => {
-    event.preventDefault();
-    if (msg.length > 0) {
-      handleSendMsg(msg);
-      setMsg("");
+    // event.preventDefault();
+    // console.log(editorContent);
+    if (editorContent.length > 0) {
+      handleSendMsg(editorContent);
+      editorContent("");
     }
   };
 
@@ -33,17 +42,35 @@ export default function ChatInput({ handleSendMsg }) {
           {showEmojiPicker && <Picker onEmojiClick={handleEmojiClick} />}
         </div>
       </div>
-      <form className="input-container" onSubmit={(event) => sendChat(event)}>
+
+      {
+        <div className="input-container">
+          {/* <DraftEditor
+            className="editorInput"
+            placeholder="Type your message here..."
+            onChange={setEditorState}
+            editorState={editorState}
+            onClick={() => console.log("works")}
+          /> */}
+
+          <RichEditor handleChange={editorOnChange} />
+
+          <button onClick={(e) => sendChat(e)}>
+            <IoMdSend />
+          </button>
+        </div>
+      }
+      {/* <form className="input-container" onSubmit={(event) => sendChat(event)}>
         <input
           type="text"
-          placeholder="type your message here"
+          placeholder="chats comes here"
           onChange={(e) => setMsg(e.target.value)}
           value={msg}
         />
         <button type="submit">
           <IoMdSend />
         </button>
-      </form>
+      </form> */}
     </Container>
   );
 }
@@ -53,7 +80,7 @@ const Container = styled.div`
   align-items: center;
   grid-template-columns: 5% 95%;
   background-color: #080420;
-  padding: 0 2rem;
+  padding: 0 rem;
   @media screen and (min-width: 720px) and (max-width: 1080px) {
     padding: 0 1rem;
     gap: 1rem;
@@ -99,15 +126,18 @@ const Container = styled.div`
     }
   }
   .input-container {
+    font-weight: bold;
     width: 100%;
-    border-radius: 2rem;
+    height: 100%;
+    border-radius: 1rem;
     display: flex;
     align-items: center;
     gap: 2rem;
     background-color: #ffffff34;
-    input {
+
+    .editorInput {
       width: 90%;
-      height: 60%;
+      height: 90%;
       background-color: transparent;
       color: white;
       border: none;

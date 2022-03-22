@@ -14,7 +14,7 @@ export default function Register() {
     autoClose: 8000,
     pauseOnHover: true,
     draggable: true,
-    theme: "dark",
+    theme: "dark  ",
   };
   const [values, setValues] = useState({
     username: "",
@@ -90,18 +90,20 @@ export default function Register() {
         <form action="" onSubmit={(event) => handleSubmit(event)}>
           <div className="brand">
             <img src={Logo} alt="logo" />
-            <h1>snappy</h1>
+            <h1>Chat Application</h1>
           </div>
           <input
             type="text"
             placeholder="Username"
             name="username"
+            autoComplete="off"
             onChange={(e) => handleChange(e)}
           />
           <input
             type="email"
             placeholder="Email"
             name="email"
+            autoComplete="off"
             onChange={(e) => handleChange(e)}
           />
           <input
@@ -117,8 +119,8 @@ export default function Register() {
             onChange={(e) => handleChange(e)}
           />
           <button type="submit">Create User</button>
-          <span>
-            Already have an account ? <Link to="/login">Login.</Link>
+          <span style={{textAlign:"center",color:"black"}}>
+            Existing Account ? <Link to="/login">Login.</Link>
           </span>
         </form>
       </FormContainer>
@@ -135,7 +137,7 @@ const FormContainer = styled.div`
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  background-color: #131324;
+  background-color: #808080;
   .brand {
     display: flex;
     align-items: center;
@@ -145,7 +147,7 @@ const FormContainer = styled.div`
       height: 5rem;
     }
     h1 {
-      color: white;
+      color: black;
       text-transform: uppercase;
     }
   }
@@ -154,7 +156,7 @@ const FormContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    background-color: #00000076;
+    background-color: white;
     border-radius: 2rem;
     padding: 3rem 5rem;
   }
@@ -163,16 +165,16 @@ const FormContainer = styled.div`
     padding: 1rem;
     border: 0.1rem solid #4e0eff;
     border-radius: 0.4rem;
-    color: white;
+    color: black;
     width: 100%;
     font-size: 1rem;
     &:focus {
-      border: 0.1rem solid #997af0;
+      border: 0.1rem solid black;
       outline: none;
     }
   }
   button {
-    background-color: #4e0eff;
+    background-color:   gray;
     color: white;
     padding: 1rem 2rem;
     border: none;
@@ -181,12 +183,13 @@ const FormContainer = styled.div`
     border-radius: 0.4rem;
     font-size: 1rem;
     text-transform: uppercase;
+    transition :0.5s ease-in-out;
     &:hover {
       background-color: #4e0eff;
     }
   }
   span {
-    color: white;
+     
     text-transform: uppercase;
     a {
       color: #4e0eff;

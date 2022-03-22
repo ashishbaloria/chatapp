@@ -34,6 +34,7 @@ export default function ChatContainer({ currentChat, socket }) {
   }, [currentChat]);
 
   const handleSendMsg = async (msg) => {
+    console.log(msg);
     const data = await JSON.parse(
       localStorage.getItem(process.env.REACT_APP_LOCALHOST_KEY)
     );
@@ -67,6 +68,7 @@ export default function ChatContainer({ currentChat, socket }) {
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+    console.log(messages);
   }, [messages]);
 
   return (
@@ -109,7 +111,7 @@ export default function ChatContainer({ currentChat, socket }) {
 
 const Container = styled.div`
   display: grid;
-  grid-template-rows: 10% 80% 10%;
+  grid-template-rows: 10% 70% 20%;
   gap: 0.1rem;
   overflow: hidden;
   @media screen and (min-width: 720px) and (max-width: 1080px) {
@@ -139,6 +141,7 @@ const Container = styled.div`
   .chat-messages {
     padding: 1rem 2rem;
     display: flex;
+
     flex-direction: column;
     gap: 1rem;
     overflow: auto;

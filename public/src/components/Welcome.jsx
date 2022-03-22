@@ -12,7 +12,7 @@ export default function Welcome() {
   }, []);
   return (
     <Container>
-      <img src={Robot} alt="" />
+      <img src={Robot} alt="Robot" />
       <h1>
         Welcome, <span>{userName}!</span>
       </h1>
@@ -31,6 +31,6 @@ const Container = styled.div`
     height: 20rem;
   }
   span {
-    color: #4e0eff;
+    color: gray;
   }
 `;
